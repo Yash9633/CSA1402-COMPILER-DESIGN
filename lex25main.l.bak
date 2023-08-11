@@ -1,0 +1,19 @@
+%{
+	int lineno;
+%}
+
+%%
+^.*\n printf("%d\t%s", lineno++, yytext);
+%%
+int yywrap() {return 1;}
+int main()
+{
+	FILE *f;
+	char myfile[10];
+	printf("Enter the file name: ");
+	scanf("%s",myfile);
+	f = fopen(myfile,"r");
+	yyin = f;
+        yylex();
+	fclose(yyin);
+}
